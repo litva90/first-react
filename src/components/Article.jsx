@@ -3,31 +3,42 @@ import React, {Component} from 'react'
 class Article extends Component {
 
     state = {
-        isOpen: true
     }
+
+    componentWillMount() {
+
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.defaultOpen !== this.props.defaultOpen) this.setSatate({
+    //         isOpen: nextProps.defaultOpen
+    //     })
+    // }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return this.state.isOpen !== nextState.isOpen
+    // }
 
     render() {
-        const {article} = this.props
+        const {article, isOpen, onButtonClick} = this.props
         console.log(this.props)
-        const body = this.state.isOpen && <section>{article.text}</section>
+        const body = isOpen && <section>{article.text}</section>
         return (
-            <div>
-                <h2>
-                {article.title}
-                <button onClick={this.handleClick}>
-                    {this.state.isOpen ? 'close' : 'open'}
-                </button>
-                </h2>
-                {body}
-                <h3>creation date: {(new Date(article.date)).toDateString()}</h3>
+            <div className="card">
+                <div className="card-header">
+                    <h2>
+                        {article.title}
+                        <button onClick={onButtonClick}>
+                            {isOpen ? 'close' : 'open'}
+                        </button>
+                    </h2>
+                </div>
+                <div className="card-body">
+                    {body}
+                    <h3>creation date: {(new Date(article.date)).toDateString()}</h3>
+                </div>
             </div>
         )
-    }
-
-    handleClick = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
     }
 }
 
